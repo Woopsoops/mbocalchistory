@@ -1,20 +1,26 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, Button, TextInput} from 'react-native';
+import { StyleSheet, Text, View, Button, TextInput, FlatList} from 'react-native';
 
 export default function App() {
   const [number1, setNumber1] = useState('');
   const [number2, setNumber2] = useState('');
   const [total, setTotal] = useState('');
+  const [history, setHistory] = useState([]);
 
 
   function calculateAddition() {
-    setTotal(parseInt(number1) + parseInt(number2));
+    const addition = parseInt(number1) + parseInt(number2);
+    setTotal(addition)
+    setHistory([...history, `${number1} + ${number2} = ${addition}`])
   }
 
   function calculateSubtraction() {
-    setTotal(parseInt(number1) - parseInt(number2));
+    const subtraction = parseInt(number1) + parseInt(number2);
+    setTotal(subtraction)
+    setHistory([...history, `${number1} + ${number2} = ${subtraction}`])
   }
+  
 
   return (
     <View style={styles.container}>
@@ -35,12 +41,20 @@ export default function App() {
           onPress={calculateSubtraction}
         />
         </View>
+      <View style={styles.flistcontainer}>
+      <FlatList
+        data={history}
+        renderItem={({ item }) => <Text>{item}</Text>}
+        keyExtractor={((item, index) => index.toString())}
+      />
+      </View>
+        
     </View>
   );
 }
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 3,
     backgroundColor: '#8c92ac',
     alignItems: 'center',
     justifyContent: 'flex-end'
@@ -58,7 +72,11 @@ const styles = StyleSheet.create({
     flexDirection: "row", 
     justifyContent: 'space-around',
     alignItems: 'flex-start',
-    padding: 30,
+    padding: 10,
+  },
+  flistcontainer: {
+    flex: 2,
+    fontSize: 20,
   }
 
 })
