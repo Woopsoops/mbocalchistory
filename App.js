@@ -18,7 +18,7 @@ export default function App() {
   function calculateSubtraction() {
     const subtraction = parseInt(number1) + parseInt(number2);
     setTotal(subtraction)
-    setHistory([...history, `${number1} + ${number2} = ${subtraction}`])
+    setHistory([...history, `${number1} - ${number2} = ${subtraction}`])
   }
   
 
